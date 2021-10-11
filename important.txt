@@ -1,0 +1,17 @@
+number +18477371509
+ACCOUNT SID AC1cf0738f673d21b26aa57a16d324ec30
+AUTH TOKEN 59b9c8ce0f3995f2f7a2acd29ae144c5
+
+export FLASK_DEBUG=1
+export DATABASE_URL="postgres://postgres@localhost:4000/sampathroutu"
+
+
+export FLASK_DEBUG=1
+export DATABASE_URL="postgres://knmozoumqfsgya:484f3a2b51e619e246b80fa49e96cf5a3bd4fd9d54976705207316007bc85c8f@ec2-54-90-68-208.compute-1.amazonaws.com:5432/d6ihm2toedpeb1"
+
+
+
+TRUNCATE TABLE REGISTER;
+
+
+

@@ -1,0 +1,325 @@
+<html>
+
+<head>
+  <title>Voting system</title>
+  <link rel="stylesheet" href="css/bootstrap.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
+</head>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Voting System</title>
+  <style>
+    *{
+      margin: 0;
+      font-family: avenir;
+    }
+    .navBar{
+            background-color: #263642;
+            overflow: hidden;
+
+        }
+
+        .navBar a {
+            float: left;
+            color: #bbd4ba;
+            text-align: center;
+            padding: 16px 18px;
+            font-size: 20px;
+            text-decoration: none;
+        }
+    table{
+            border-spacing: 0px;
+        }
+        .box{
+            display: flex;
+            flex-direction: column;
+            /* justify-content: center; */
+            align-items: center;
+            height: 75vh;
+            width: 100vw;
+        }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+        th,
+        td {
+            padding: 15px;
+        }
+
+        .partySymbol {
+            height: 100px;
+            width: auto;
+        }
+
+        .candidateImage {
+          height: 100px;
+          width: auto;
+          margin-left: 10px;
+        }
+
+        .partyaName,
+        .candidateName,
+        .mpmla {
+          text-align: center;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+    .voteNow {
+      width: 100px;
+      background-color: transparent;
+      outline: none;
+      border-radius: 10px;
+      border: 2px solid #0864ab;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .info {
+      text-align: center;
+    }
+
+    .voteNow.selected {
+      background-color: #0864ab;
+      color: #fff;
+    }
+
+    #continue {
+      width: 100px;
+      background-color: transparent;
+      outline: none;
+      border-radius: 10px;
+      border: 2px solid #0864ab;
+      cursor: pointer;
+      transition: 0.2s;
+      float: right;
+      margin-right: 150px;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      display: none;
+    }
+  </style>
+</head>
+
+
+<div data-role="page">
+  <div data-role="page">
+    <div class = "navBar">
+			<a href="{{url_for('login')}}">Online Voting System</a>
+			<a href="{{url_for('feedback')}}">Feedback</a>
+			<a href="{{url_for('logout')}}">Logout</a>
+		</div>
+  <br>
+  <br>
+  <br>
+
+
+
+
+  <body>
+    <br />
+    <div class="col-sm-1">
+    </div>
+    <div class="box">
+      <table>
+        <tr bgcolor="lightblue">
+          <th>Party Symbol</th>
+          <th>Candidate Image</th>
+          <th>Party Name</th>
+          <th>Candidate Name</th>
+          <th>MP / MLA</th>
+          <th>Action</th>
+        </tr>
+        <tr bgcolor="white">
+          <td>
+            <img src="{{mp[0][0]}}" class="partySymbol" />
+          </td>
+          <td><img src="{{mp[0][1]}}" class="candidateImage" </td>
+          <td class="partyaName">{{mp[0][2]}}</td>
+          <td class="candidateName">{{mp[0][3]+" "+mp[0][4]}}</td>
+          <td class="mpmla">MP</td>
+          <td>
+            <button onclick="addMemberChoice('{{mp[0][5]}}',0);disableBranch0(0)" class="voteNow 0 0">
+              Vote Now
+            </button>
+          </td>
+        </tr>
+        <tr bgcolor="white">
+          <td>
+            <img src="{{mp[1][0]}}" class="partySymbol" />
+          </td>
+          <td><img src="{{mp[1][1]}}" class="candidateImage" </td>
+          <td class="partyaName">{{mp[1][2]}}</td>
+          <td class="candidateName">{{mp[1][3]+" "+mp[1][4]}}</td>
+          <td class="mpmla">MP</td>
+          <td>
+            <button onclick="addMemberChoice('{{mp[1][5]}}', 1);disableBranch0(1)" class="voteNow 0 1">
+              Vote Now
+            </button>
+          </td>
+        </tr>
+        <tr bgcolor="white">
+          <td>
+            <img src="{{mla[0][0]}}" class="partySymbol" />
+          </td>
+          <td><img src="{{mla[0][1]}}" class="candidateImage" </td>
+          <td class="partyaName">{{mla[0][2]}}</td>
+          <td class="candidateName">{{mla[0][3]+" "+mla[0][4]}}</td>
+          <td class="mpmla">MLA</td>
+          <td>
+            <button onclick="addMemberChoice('{{mla[0][5]}}', 2);disableBranch1(0)" class="voteNow 1 2">
+              Vote Now
+            </button>
+          </td>
+        </tr>
+        <tr bgcolor="white">
+          <td>
+            <img src="{{mla[1][0]}}" class="partySymbol" />
+          </td>
+          <td><img src="{{mla[1][1]}}" class="candidateImage" </td>
+          <td class="partyaName">{{mla[1][2]}}</td>
+          <td class="candidateName">{{mla[1][3]+" "+mla[1][4]}}</td>
+          <td class="mpmla">MLA</td>
+          <td>
+            <button class="voteNow 1 3" onclick="addMemberChoice('{{mla[1][5]}}', 3);disableBranch1(1)">
+              Vote Now
+            </button>
+          </td>
+        </tr>
+      </table>
+      <input type="hidden" id="hiddenInput" value="" />
+
+      <button id="continue">Continue</button>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      var partiesSelected = [];
+
+      Array.prototype.remove = function () {
+        var what,
+          a = arguments,
+          L = a.length,
+          ax;
+        while (L && this.length) {
+          what = a[--L];
+          while ((ax = this.indexOf(what)) !== -1) {
+            this.splice(ax, 1);
+          }
+        }
+        return this;
+      };
+
+      var branch0 = [];
+      var branch1 = [];
+
+      function addMemberChoice(member, toBeSelected) {
+        if (toBeSelected == 0) {
+          if (branch0[0] == "enabled" && branch0[1] == "disabled") {
+            branch0[0] = "enabled";
+            branch0[1] = "enabled";
+          } else {
+            branch0[0] = "enabled";
+            branch0[1] = "disabled";
+          }
+        } else if (toBeSelected == 1) {
+          if (branch0[0] == "disabled" && branch0[1] == "enabled") {
+            branch0[0] = "enabled";
+            branch0[1] = "enabled";
+          } else {
+            branch0[0] = "disabled";
+            branch0[1] = "enabled";
+          }
+        } else if (toBeSelected == 2) {
+          if (branch1[0] == "enabled" && branch1[1] == "disabled") {
+            branch1[0] = "enabled";
+            branch1[1] = "enabled";
+          } else {
+            branch1[0] = "enabled";
+            branch1[1] = "disabled";
+          }
+        } else if (toBeSelected == 3) {
+          if (branch1[0] == "disabled" && branch1[1] == "enabled") {
+            branch1[0] = "enabled";
+            branch1[1] = "enabled";
+          } else {
+            branch1[0] = "disabled";
+            branch1[1] = "enabled";
+          }
+        }
+
+        if (partiesSelected.includes(member)) {
+          partiesSelected.remove(member);
+          document
+            .getElementsByClassName(toBeSelected)[0]
+            .classList.remove("selected");
+        } else {
+          partiesSelected.push(member);
+          document
+            .getElementsByClassName(toBeSelected)[0]
+            .classList.add("selected");
+        }
+
+        if (partiesSelected.length === 2) {
+          document.getElementById("continue").style.display = "block";
+        } else {
+          document.getElementById("continue").style.display = "none";
+        }
+      }
+
+      function disableBranch0(branch) {
+        if (branch0[0] == "enabled" && branch0[1] == "disabled") {
+          document.getElementsByClassName(0)[0].disabled = false;
+          document.getElementsByClassName(1)[0].disabled = true;
+        } else if (branch0[0] == "disabled" && branch0[1] == "enabled") {
+          document.getElementsByClassName(1)[0].disabled = false;
+          document.getElementsByClassName(0)[0].disabled = true;
+        } else if (branch0[0] == "enabled" && branch0[1] == "enabled") {
+          document.getElementsByClassName(1)[0].disabled = false;
+          document.getElementsByClassName(0)[0].disabled = false;
+        }
+        console.log(partiesSelected);
+      }
+
+      function disableBranch1(branch) {
+        if (branch1[0] == "enabled" && branch1[1] == "disabled") {
+          document.getElementsByClassName(2)[0].disabled = false;
+          document.getElementsByClassName(3)[0].disabled = true;
+        } else if (branch1[0] == "disabled" && branch1[1] == "enabled") {
+          document.getElementsByClassName(2)[0].disabled = true;
+          document.getElementsByClassName(3)[0].disabled = false;
+        } else if (branch1[0] == "enabled" && branch1[1] == "enabled") {
+          document.getElementsByClassName(2)[0].disabled = false;
+          document.getElementsByClassName(3)[0].disabled = false;
+        }
+      }
+      $(function () {
+        $("#continue").click(function () {
+          document.getElementById("hiddenInput").value = partiesSelected;
+          $.ajax({
+            url: "/voteback",
+            data: {
+              values: $("#hiddenInput").val(),
+            },
+            type: "POST",
+            url: "/voteback",
+          }).done(function (data) {
+            alert(data);
+            window.location.replace("{{url_for('login')}}");
+          });
+        });
+      });
+    </script>
+  </body>
+
+  <br>
+  <br>
+  <br>
+  <br>
+
+</html>

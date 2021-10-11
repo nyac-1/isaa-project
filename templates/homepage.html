@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<link rel="stylesheet" href="css/bootstrap.css" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Dashboard</title>
+	<style>
+		*{
+            margin: 0;
+            font-family: "avenir";
+        }
+
+        .navBar{
+            background-color: #263642;
+            overflow: hidden;
+
+        }
+
+        .navBar a {
+            float: left;
+            color: #bbd4ba;
+            text-align: center;
+            padding: 16px 18px;
+            font-size: 20px;
+            text-decoration: none;
+        }
+        
+        .navbar a:hover{
+            background-color: #48494a;
+        }
+	</style>
+</head>
+
+<body>
+	<div data-role="page"
+		style="background-image: url('https://image.freepik.com/free-vector/india-flag-background-design_46250-2207.jpg'); background-size: 100% 100%;">
+
+		<div class = "navBar">
+			<a href="{{url_for('login')}}">Online Voting System</a>
+			<a href="{{url_for('register')}}">Register</a>
+			<a href="{{url_for('vote')}}">Vote</a>
+			<a href="{{url_for('feedback')}}">Feedback</a>
+			<a href="{{url_for('logout')}}">Logout</a>
+		</div>
+		
+
+
+		<ul>
+			<div class="col-sm-5">
+			</div>
+			<h1>Hello {{name}}!</h1>
+			<br />
+			<div class="col-sm-3">
+			</div>
+			<div class="col-sm-6">
+
+				<div class="form-group">
+					<a href="{{url_for('aadharView',aadhar=message)}}" class="btn btn-info btn-block btn-lg ">Aadhar:{{message}}</a>
+				</div>
+			</div>
+
+			<br>
+			<br>
+			<br>
+
+
+			<br>
+			<br>
+			<br>
+
+
+			<div class="col-sm-3">
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group">
+					<!--<button type="submit" class="btn btn-success btn-block" name="login">Login</button>-->
+					<a href="{{url_for('register')}}" class="btn btn-primary btn-block btn-lg">Register To Vote</a>
+				</div>
+			</div>
+
+
+
+
+
+			<br>
+			<br>
+			<br>
+
+
+			<br>
+			<br>
+			<br>
+			<div class="col-sm-3">
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group">
+					<!--<button type="submit" class="btn btn-success btn-block" name="login">Login</button>-->
+					<a href="{{url_for('search')}}" class="btn btn-warning btn-block btn-lg">View Candidate</a>
+				</div>
+			</div>
+
+
+			<br>
+			<br>
+			<br>
+
+
+			<br><br><br><div class="col-sm-3"></div>
+			
+			<div class="col-sm-6">
+				<div class="form-group">
+					<!--<button type="submit" class="btn btn-success btn-block" name="login">Login</button>-->
+					<!-- {{url_for('vote')}} -->
+					<a href="{{url_for('vote')}}" class="btn btn-success btn-block btn-lg">Participate To Vote</a>
+				</div>
+			</div>
+
+
+			<br><br><br><br><div class="col-sm-3"></div>
+
+			<div class="col-sm-6">
+				<div class="form-group">
+
+					<a href="{{url_for('logout')}}" class="btn btn- btn-block btn-lg">Logout</a>
+				</div>
+			</div>
+		</ul>
+
+
+
+
+
+
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+
+</body>
+
+</html>

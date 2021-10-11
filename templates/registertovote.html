@@ -1,0 +1,113 @@
+<html>
+
+<head>
+  <title>Register</title>
+  <link rel="stylesheet" href="css/bootstrap.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
+
+  <style>
+    *{
+            margin: 0;
+            font-family: "avenir";
+        }
+
+        .loginArea{
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .navBar{
+            background-color: #263642;
+            overflow: hidden;
+
+        }
+
+        .navBar a {
+            float: left;
+            color: #bbd4ba;
+            text-align: center;
+            padding: 16px 18px;
+            font-size: 20px;
+            text-decoration: none;
+        }
+        
+        .navbar a:hover{
+            background-color: #48494a;
+        }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelector("#aadhar-no-input").disabled = true;
+      document.querySelector("#register-submit").disabled = true;
+
+      document.querySelector("#zone-id").onkeyup = () => {
+        if (document.querySelector("#zone-id").value.length > 0) {
+          document.querySelector("#register-submit").disabled = false;
+        } else {
+          document.querySelector("#register-submit").disabled = true;
+        }
+      };
+    });
+    function noEnter(e) {
+      e = e || window.event;
+      var key = e.keyCode || e.charCode;
+      return key !== 13;
+    }
+  </script>
+</head>
+
+
+<body>
+
+  <div class = "navBar">
+    <a href="{{url_for('login')}}">Online Voting System</a>
+    <a href="{{url_for('vote')}}">Vote</a>
+    <a href="{{url_for('feedback')}}">Feedback</a>
+    <a href="{{url_for('logout')}}">Logout</a>
+  </div>
+
+  <br>
+  <br>
+
+  <br>
+  <br>
+  <br>
+
+  <body>
+
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2 bg-success" style="box-shadow:2px 2px 2px 2px gray;">
+        <h3 class="text text-center alert bg-primary">Register</h3>
+        <br />
+
+
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-10">
+          <div class="form-group">
+            <h3>Your aadhar number will be taken for reference</h3>
+          </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <form action="{{url_for('regback')}}" method="POST">
+          <label for="aadhar-no-input">Aadhar Number :</label>
+          <input id="aadhar-no-input" type="text" placeholder="{{credentials[0]}}" /><br />
+
+          <label for="zone-id">Zone :</label>
+          <input id="zone-id" name="zone-id" type="text" onkeypress="return noEnter(event)" /><br /><br />
+
+          <input id="register-submit" type="submit" />
+        </form>
+        <br>
+        <br>
+        <br>
+        <br>
+
+
+  </body>
+
+  </html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+</head>
+
+<style>
+    *{
+        margin: 0;
+        font-family: "avenir";
+    }
+
+        .navBar{
+            background-color: #263642;
+            overflow: hidden;
+            z-index: 100 !important;
+            height: 60px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+        }
+
+        .navBar a {
+            float: left;
+            color: #bbd4ba;
+            text-align: center;
+            padding: 16px 18px;
+            font-size: 20px;
+            text-decoration: none;
+        }
+        
+        .navbar a:hover{
+            background-color: #48494a;
+        }
+    .bodyGradient {
+        /* margin-top: -10px; */
+        min-height: 100vh;
+        min-width: 100vh;
+        background: linear-gradient(left, orange, white, green);
+        background: -webkit-gradient(left, orange, white, green);
+        background: -webkit-linear-gradient(left, orange, white, green);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: scroll;
+        z-index: 0 !important;
+    }
+
+    .feedbackForm {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: white;
+        border-radius: 10px;
+        width: 40em;
+        height: fit-content;
+        outline: none;
+        border: none;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0px 12px 18px -9px rgba(0, 0, 0, 0.496);
+        font-size: 18px;
+    }
+
+    .feedbackForm::-webkit-input-placeholder {
+        font-size: 18px;
+    }
+
+    .feedTitle {
+        margin-top: 50px;
+        padding: 30px;
+        color: black;
+    }
+
+    .checkboxWrapper {
+        background-color: white;
+        height: 3em;
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        transition: 0.2s;
+    }
+
+    .checkboxWrapper:hover {
+        cursor: pointer;
+        box-shadow: 8px 8px 8px -6px rgba(0, 0, 0, 0.496);
+    }
+
+    .checkboxWrapper label {
+        margin: 10px;
+        font-weight: 400;
+    }
+
+    .submitButton {
+        color: white;
+        width: 10%;
+        border: none;
+        outline: none;
+        padding: 10px;
+        margin: 20px;
+        border-radius: 10px;
+        background: #0072ff;
+    }
+
+    .reviewCards {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .reviewCard {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        border-radius: 10px;
+        width: 40em;
+        padding: 25px;
+        height: fit-content;
+        margin: 10px;
+    }
+
+    .reviewCardHeader {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+    }
+
+    .avatar {
+        border-radius: 50px;
+        height: 3em;
+    }
+
+    .userDetails h1 {
+        font-size: 15px !important;
+        font-weight: 700 !important;
+        margin: 10px;
+    }
+
+    .reviewCardBody {
+        word-wrap: break-word;
+        margin-top: 10px !important;
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+
+<body>
+    <div class = "navBar">
+        <a href="{{url_for('login')}}">Online Voting System</a>
+        <a href="{{url_for('register')}}">Register</a>
+        <a href="{{url_for('vote')}}">Vote</a>
+        <a href="{{url_for('logout')}}">Logout</a>
+    </div>
+    <div class="bodyGradient">
+        <h1 class="feedTitle">Feedback</h1>
+
+        <form action="{{url_for('backback')}}" method="POST" class="form">
+            <textarea rows="15" cols="50" class="feedbackForm" id='textplace' name='textplace'
+                placeholder="Please tell us your opinion"></textarea>
+
+            <div class="checkboxWrapper">
+                <input type='checkbox' id='anym' name='anym' value=1>
+                <label for='anym'> Anonymous</label><br>
+            </div>
+
+            <button class="submitButton" id='feed-submit' type="submit"
+                onkeypress="return noEnter(event)">Submit</button>
+        </form>
+
+        <br />
+        <br />
+        <h1>Reviews</h1>
+
+        <ul class="reviewCards">
+
+            {%for feedback in feedbacks%}
+            <li class="reviewCard">
+                <div class="reviewCardHeader">
+                    <div class="userDetails">
+                        <h1>{{feedback[0]}}</h1>
+                    </div>
+                </div>
+                <div class="reviewCardBody">
+                    <p>{{feedback[1]}}</p>
+                </div>
+            </li>
+            {%endfor%}
+
+        </ul>
+    </div>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+        document.querySelector("#feed-submit").disabled = true;
+
+        document.querySelector("#textplace").onkeyup = () => {
+            if (document.querySelector("#textplace").value.length > 0) {
+                document.querySelector("#feed-submit").disabled = false;
+            } else {
+                document.querySelector("#feed-submit").disabled = true;
+            }
+        };
+    });
+    function noEnter(e) {
+        e = e || window.event;
+        var key = e.keyCode || e.charCode;
+        return key !== 13;
+    }
+</script>
+
+</html>

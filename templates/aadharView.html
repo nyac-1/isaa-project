@@ -1,0 +1,111 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="css/bootstrap.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
+  <title>Aadhar</title>
+
+  <style>
+    *{
+            margin: 0;
+            font-family: "avenir";
+        }
+
+        .loginArea{
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .navBar{
+            background-color: #263642;
+            overflow: hidden;
+
+        }
+
+        .navBar a {
+            float: left;
+            color: #bbd4ba;
+            text-align: center;
+            padding: 16px 18px;
+            font-size: 20px;
+            text-decoration: none;
+        }
+        
+        .navbar a:hover{
+            background-color: #48494a;
+        }
+  </style>
+</head>
+
+<body>
+
+  <div data-role="page"
+    style="background-image: url('https://image.freepik.com/free-vector/india-flag-background-design_46250-2207.jpg');background-repeat:no-repeat; background-size: 100% 100%;">
+    
+    <div class = "navBar">
+			<a href="{{url_for('login')}}">Online Voting System</a>
+			<a href="{{url_for('register')}}">Register</a>
+			<a href="{{url_for('vote')}}">Vote</a>
+			<a href="{{url_for('feedback')}}">Feedback</a>
+      <a href="{{url_for('logout')}}">Logout</a>
+    </div>
+
+    <br>
+    <br>
+
+    <br>
+    <h1>
+      <center>Aadhar Credentials</center>
+    </h1>
+    <br />
+    <div>
+      <h3>
+        <center>Aadhar Number: {{credentials[0]}}</center>
+      </h3>
+      <h3>
+        <center>Name: {{credentials[1]+" "+credentials[2]}}</center>
+      </h3>
+      <h3>
+        <center>Phone Number: {{credentials[3]}}</center>
+      </h3>
+      <h3>
+        <center>Date of Birth: {{credentials[4]}}</center>
+      </h3>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <br>
+    <br>
+    <br>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</body>
+
+</html>

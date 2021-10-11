@@ -1,0 +1,211 @@
+<html>
+
+<head>
+    <title>Voting system</title>
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
+</head>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voting System</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {
+            packages: ['corechart']
+        });
+    </script>
+    <style>
+        *{
+                margin: 0;
+                font-family: "avenir";
+                
+            }
+    
+            .loginArea{
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+            }
+    
+            .navBar{
+                background-color: #263642;
+                overflow: hidden;
+    
+            }
+    
+            .navBar a {
+                float: left;
+                color: #bbd4ba;
+                text-align: center;
+                padding: 16px 18px;
+                font-size: 20px;
+                text-decoration: none;
+            }
+            
+            .navbar a:hover{
+                background-color: #48494a;
+            }
+            table{
+                border-spacing: 0px;
+            }
+            .box{
+                display: flex;
+                flex-direction: column;
+                /* justify-content: center; */
+                align-items: center;
+                height: 75vh;
+                width: 100vw;
+            }
+            table,
+            th,
+            td {
+                border: 1px solid black;
+            }
+            th,
+            td {
+                padding: 15px;
+            }
+    
+            .partySymbol {
+                height: 100px;
+                width: auto;
+            }
+    
+            .candidateImage {
+              height: 100px;
+              width: auto;
+              margin-left: 10px;
+            }
+    
+            .partyaName,
+            .candidateName,
+            .mpmla {
+              text-align: center;
+            }
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            
+      </style>
+</head>
+
+
+<div data-role="page"
+    style="background-size: 100% 100%;">
+    <div class = "navBar">
+			<a href="{{url_for('login')}}">Online Voting System</a>
+			<a href="{{url_for('register')}}">Register</a>
+			<a href="{{url_for('vote')}}">Vote</a>
+			<a href="{{url_for('feedback')}}">Feedback</a>
+			<a href="{{url_for('logout')}}">Logout</a>
+		</div>
+    <br>
+    <br>
+    <br>
+
+
+
+
+
+    <body>
+        <br />
+        <div class="col-sm-1">
+        </div>
+        <div class="box">
+            <table>
+              <tr bgcolor="lightblue">
+                  <th>Paty Symbol</th>
+                  <th>Candidate Image</th>
+                  <th>Party Name</th>
+                  <th>Candidate Name</th>
+                  <th>MP/MLA</th>
+                  <th>Number of votes</th>
+              </tr>
+      
+              <tr bgcolor="white">
+                  <td>
+                    <img src="{{mp[0][0]}}" class="partySymbol" />
+                  </td>
+                  <td><img src="{{mp[0][1]}}" class="candidateImage" </td>
+                  <td class="partyaName">{{mp[0][2]}}</td>
+                  <td id class="candidateName">{{mp[0][3]+" "+mp[0][4]}}</td>
+                  <td class="mpmla">MP</td>
+                  <td class="mpmla">{{mp[0][6]}}</td>
+        
+                </tr>
+                <tr bgcolor="white">
+                  <td>
+                    <img src="{{mp[1][0]}}" class="partySymbol" />
+                  </td>
+                  <td><img src="{{mp[1][1]}}" class="candidateImage" </td>
+                  <td class="partyaName">{{mp[1][2]}}</td>
+                  <td class="candidateName">{{mp[1][3]+" "+mp[1][4]}}</td>
+                  <td class="mpmla">MP</td>
+                  <td class="mpmla">{{mp[1][6]}}</td>
+        
+                </tr>
+                <tr bgcolor="white">
+                  <td>
+                    <img src="{{mla[0][0]}}" class="partySymbol" />
+                  </td>
+                  <td><img src="{{mla[0][1]}}" class="candidateImage" </td>
+                  <td class="partyaName">{{mla[0][2]}}</td>
+                  <td class="candidateName">{{mla[0][3]+" "+mla[0][4]}}</td>
+                  <td class="mpmla">MLA</td>
+                  <td class="mpmla">{{mla[0][6]}}</td>
+        
+                </tr>
+                <tr bgcolor="white">
+                  <td>
+                    <img src="{{mla[1][0]}}" class="partySymbol" />
+                  </td>
+                  <td><img src="{{mla[1][1]}}" class="candidateImage" </td>
+                  <td class="partyaName">{{mla[1][2]}}</td>
+                  <td class="candidateName">{{mla[1][3]+" "+mla[1][4]}}</td>
+                  <td class="mpmla">MLA</td>
+                  <td class="mpmla">{{mla[1][6]}}</td>
+        
+                </tr>
+              
+          </table>
+          </div>
+          <div id="container" style="width: 900px; height: 600px; margin: 0 auto"></div>
+          <script language="JavaScript">
+
+
+              function drawChart() {
+
+                var fullData = [['', 'Votes Casted']];
+                var i = 0;
+                var names = document.getElementsByClassName("candidateName");
+                var scores = document.getElementsByClassName("mpmla");
+                
+                var data = google.visualization.arrayToDataTable([
+                    ['', 'Votes Casted'],
+                    [names[0].innerHTML, parseInt(scores[1].innerHTML)],
+                    [names[1].innerHTML, parseInt(scores[3].innerHTML)],
+                    [names[2].innerHTML, parseInt(scores[5].innerHTML)],
+                    [names[3].innerHTML, parseInt(scores[7].innerHTML)]
+                  ]);
+                var options = {
+                    title: 'Vote Statistics',
+                    isStacked: true
+                };
+                var chart = new google.visualization.BarChart(document.getElementById('container'));
+                chart.draw(data, options);
+              }
+              google.charts.setOnLoadCallback(drawChart);
+          </script>
+        <br>
+        <br>
+
+        <br>
+        <br>
+      
+        <br>
+    </body>
+
+</html>
